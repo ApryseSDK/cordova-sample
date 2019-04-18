@@ -22,7 +22,7 @@ package com.pdftron.cordovasample;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
-public class MainActivity extends CordovaActivity
+public class MainActivity extends CordovaAppCompatActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
