@@ -12,5 +12,4 @@
         <meta-data android:name="pdftron_license_key" android:value="${pdftronLicenseKey}" />
         <activity android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize" android:name="com.pdftron.pdf.controls.DocumentActivity" android:theme="@style/CustomAppTheme" android:windowSoftInputMode="adjustPan" />
     </application>
-    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="28" />
 </manifest>

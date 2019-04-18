@@ -30,6 +30,10 @@ var app = {
         this.receivedEvent('deviceready');
     },
 
+    onTopLeftButtonPressed: function () {
+      console.log('onTopLeftButtonPressed');
+    },
+
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
@@ -40,6 +44,17 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+
+        var viewerElement = document.getElementById('viewer');
+        var viewer = new PDFTron.NativeViewer({
+          l: '<your-key-here>',
+          initialDoc: 'https://pdftron.s3.amazonaws.com/downloads/pl/PDFTRON_mobile_about.pdf',
+          disabledElements: [
+            // hide elements as you wish
+          ]
+        }, viewerElement);
+
+        document.addEventListener("topLeftButtonPressed", this.onTopLeftButtonPressed.bind(this), false);
     }
 };
 
