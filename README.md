@@ -1,6 +1,13 @@
 # PDFTron Cordova Sample
 Cordova sample project that integrates a document viewer using [PDFTron Cordova](https://github.com/PDFTron/pdftron-cordova).
 
+## Install
+
+```
+cd CordovaSample
+cordova plugin add https://github.com:PDFTron/pdftron-cordova.git
+```
+
 ## Run
 
 ### iOS
