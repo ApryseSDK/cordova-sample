@@ -12,7 +12,7 @@ cordova plugin add https://github.com:PDFTron/pdftron-cordova.git
 
 ### iOS
 
-Using Xcode, open the sample's workspace file, found at `/CordovaSample/platforms/ios/CordovaSample.xcworkspaceCordovaSample.xcworkspace`, and integrate the iOS native libraries as explained on the [plugin page](https://github.com/PDFTron/pdftron-cordova#ios).
+Using Xcode, open the sample's workspace file, found at `/CordovaSample/platforms/ios/CordovaSample.xcworkspace`, and integrate the iOS native libraries as explained on the [plugin page](https://github.com/PDFTron/pdftron-cordova#ios).
 
 Using Terminal, navigate to the `CordovaExample` directory, and run
 
