@@ -6,13 +6,5 @@
     },
     "is_top_level": true,
     "variables": {}
-  },
-  "pdftron-cordova": {
-    "source": {
-      "type": "registry",
-      "id": "https://github.com:PDFTron/pdftron-cordova.git"
-    },
-    "is_top_level": true,
-    "variables": {}
   }
 }
