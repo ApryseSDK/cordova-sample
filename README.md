@@ -1,7 +1,7 @@
 # PDFTron Cordova Sample
 Cordova sample project that integrates a document viewer using [PDFTron Cordova](https://github.com/PDFTron/pdftron-cordova).
 
-## Preparation
+## Run
 
 ### iOS
 
@@ -19,6 +19,9 @@ Your PDFTron credentials are confidential. Please make sure that they are not pu
 Run the terminal command: `cordova build android`
 
 Then, import `CordovaSample/platforms/android` folder into Android Studio, then run the project from Android Studio using the play button.
+
+## Contributing
+See [Contributing](./CONTRIBUTING.md)
 
 ## License
 See [License](./LICENSE)
