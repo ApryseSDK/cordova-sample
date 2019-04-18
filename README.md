@@ -18,7 +18,7 @@ Your PDFTron credentials are confidential. Please make sure that they are not pu
 
 Run the terminal command: `cordova build android`
 
-Then, import `CordovaSample/platforms/android` folder into Android Studio, then run the project from Android Studio using the play button.
+Then, import `CordovaSample/platforms/android` folder into Android Studio, and run the project from Android Studio using the play button.
 
 ## Contributing
 See [Contributing](./CONTRIBUTING.md)
