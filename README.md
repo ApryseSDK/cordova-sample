@@ -12,13 +12,15 @@ cordova plugin add https://github.com:PDFTron/pdftron-cordova.git
 
 ### iOS
 
-Using Xcode, open the sample's workspace file, found at `/CordovaSample/platforms/ios/CordovaSample.xcworkspace`, and integrate the iOS native libraries as explained on the [plugin page](https://github.com/PDFTron/pdftron-cordova#ios).
+Download the [PDFTron iOS SDK .dmg file](https://www.pdftron.com/documentation/ios/guides/getting-started/integrate-manual). (If you have not yet regisered for a key, please do so.)
 
-Using Terminal, navigate to the `CordovaExample` directory, and run
+From the .dmg file, copy both `/Lib/Framework-dynamic/PDFNet.framework` and `/Lib/Tools/Tools.framework` to the Cordova sample directory `/CordovaSample/platforms/ios/`.
+
+With terminal still in the `CordovaExample` directory, run
 
 ```cordova build ios```
 
-Then run the project using Xcode's play button.
+Then open `/CordovaSample/platforms/ios/CordovaSample.xcworkspace` in Xcode, and run it using Xcode's play button.
 
 ### Android
 Add your [PDFTron credentials](https://www.pdftron.com/documentation/android/guides/getting-started/integrate-gradle?showkey=true) to the gradle.properties file:
