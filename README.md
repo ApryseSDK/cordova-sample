@@ -23,11 +23,6 @@ With terminal still in the `CordovaExample` directory, run
 Then open `/CordovaSample/platforms/ios/CordovaSample.xcworkspace` in Xcode, and run it using Xcode's play button.
 
 ### Android
-Add your [PDFTron license key](https://www.pdftron.com/documentation/android/guides/getting-started/integrate-gradle?showkey=true) to the gradle.properties file:
-```
-PDFTRON_LICENSE_KEY=YOUR_PDFTRON_LICENSE_KEY
-```
-Your PDFTron credentials are confidential. Please make sure that they are not publicly available.
 
 Run the terminal command: `cordova build android`
 
