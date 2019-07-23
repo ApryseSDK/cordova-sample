@@ -12,7 +12,7 @@ cordova plugin add https://github.com:PDFTron/pdftron-cordova.git
 
 ### iOS
 
-Download the [PDFTron iOS SDK .dmg file](https://www.pdftron.com/documentation/ios/guides/getting-started/integrate-manual). (If you have not yet regisered for a key, please do so.)
+Download the [PDFTron iOS SDK .dmg file](https://www.pdftron.com/documentation/ios/get-started/integration/manually). (If you have not yet regisered for a key, please do so.)
 
 From the .dmg file, copy both `/Lib/Framework-dynamic/PDFNet.framework` and `/Lib/Tools/Tools.framework` to the Cordova sample directory `/CordovaSample/platforms/ios/`.
 
