@@ -33,3 +33,4 @@ See [Contributing](./CONTRIBUTING.md)
 
 ## License
 See [License](./LICENSE)
+![](https://onepixel.pdftron.com/cordova-sample)
