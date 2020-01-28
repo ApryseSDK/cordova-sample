@@ -3,15 +3,13 @@ package com.pdftron.cordova;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.pdftron.common.PDFNetException;
+import com.pdftron.pdf.PDFViewCtrl;
 import com.pdftron.pdf.config.ToolManagerBuilder;
 import com.pdftron.pdf.config.ViewerConfig;
 import com.pdftron.pdf.controls.PdfViewCtrlTabFragment;
@@ -29,6 +27,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -51,6 +53,7 @@ public class PDFTron extends CordovaPlugin {
     public static final String Key_enableTools = "enableTools";
     public static final String Key_disableTools = "disableTools";
     public static final String Key_setToolMode = "setToolMode";
+    public static final String Key_setPagePresentationMode = "setPagePresentationMode";
     public static final String Key_loadDocument = "loadDocument";
     public static final String Key_NativeViewer = "NativeViewer";
 
@@ -105,6 +108,9 @@ public class PDFTron extends CordovaPlugin {
             return true;
         } else if (Key_setToolMode.equals(action)) {
             setToolMode(args.getString(0), callbackContext);
+            return true;
+        } else if (Key_setPagePresentationMode.equals(action)) {
+            setPagePresentationMode(args.getString(0), callbackContext);
             return true;
         } else if (Key_loadDocument.equals(action)) {
             loadDocument(args.getString(0), callbackContext);
@@ -163,8 +169,8 @@ public class PDFTron extends CordovaPlugin {
     private void createDocumentViewerImpl(@NonNull JSONObject options, @Nullable String viewerElement, CallbackContext callbackContext) {
         try {
             Activity currentActivity = cordova.getActivity();
-            if (currentActivity instanceof FragmentActivity) {
-                FragmentActivity fragmentActivity = (FragmentActivity) cordova.getActivity();
+            if (currentActivity instanceof AppCompatActivity) {
+                AppCompatActivity fragmentActivity = (AppCompatActivity) cordova.getActivity();
 
                 mDocumentView = new DocumentView(cordova.getContext());
                 mDocumentView.setSupportFragmentManager(fragmentActivity.getSupportFragmentManager());
@@ -185,10 +191,10 @@ public class PDFTron extends CordovaPlugin {
                     String rect = options.getString(Key_boundingRect);
                     Log.d("cordova", "boundingRect: " + rect);
                     JSONObject rectObject = new JSONObject(rect);
-                    int left = Integer.parseInt(rectObject.getString("left"));
-                    int top = Integer.parseInt(rectObject.getString("top"));
-                    int width = Integer.parseInt(rectObject.getString("width"));
-                    int height = Integer.parseInt(rectObject.getString("height"));
+                    int left = (int) Float.parseFloat(rectObject.getString("left"));
+                    int top = (int) Float.parseFloat(rectObject.getString("top"));
+                    int width = (int) Float.parseFloat(rectObject.getString("width"));
+                    int height = (int) Float.parseFloat(rectObject.getString("height"));
                     mDocumentView.setRect((int) Utils.convDp2Pix(cordova.getContext(), left),
                             (int) Utils.convDp2Pix(cordova.getContext(), top),
                             (int) Utils.convDp2Pix(cordova.getContext(), width),
@@ -280,9 +286,44 @@ public class PDFTron extends CordovaPlugin {
                         .showUserBookmarksList(false);
             } else if ("thumbnailSlider".equals(item)) {
                 mBuilder = mBuilder.showBottomNavBar(false);
+            } else if ("editPagesButton".equals(item)) {
+                mBuilder = mBuilder.showEditPagesOption(false);
+            } else if ("printButton".equals(item)) {
+                mBuilder = mBuilder.showPrintOption(false);
+            } else if ("closeButton".equals(item)) {
+                mBuilder = mBuilder.showCloseTabOption(false);
+            } else if ("saveCopyButton".equals(item)) {
+                mBuilder = mBuilder.showSaveCopyOption(false);
+            } else if ("formToolsButton".equals(item)) {
+                mBuilder = mBuilder.showFormToolbarOption(false);
+            } else if ("moreItemsButton".equals(item)) {
+                mBuilder = mBuilder
+                        .showEditPagesOption(false)
+                        .showPrintOption(false)
+                        .showCloseTabOption(false)
+                        .showSaveCopyOption(false)
+                        .showFormToolbarOption(false);
             }
         }
         disableTools(args);
+    }
+
+    private PDFViewCtrl.PagePresentationMode convStringToPagePresentationMode(String item) {
+        PDFViewCtrl.PagePresentationMode mode = null;
+        if ("SinglePage".equals(item)) {
+            mode = PDFViewCtrl.PagePresentationMode.SINGLE;
+        } else if ("SingleContinous".equals(item)) {
+            mode = PDFViewCtrl.PagePresentationMode.SINGLE_CONT;
+        } else if ("Facing".equals(item)) {
+            mode = PDFViewCtrl.PagePresentationMode.FACING;
+        } else if ("FacingContinous".equals(item)) {
+            mode = PDFViewCtrl.PagePresentationMode.FACING_CONT;
+        } else if ("FacingCover".equals(item)) {
+            mode = PDFViewCtrl.PagePresentationMode.FACING_COVER;
+        } else if ("FacingContinousCover".equals(item)) {
+            mode = PDFViewCtrl.PagePresentationMode.FACING_COVER_CONT;
+        }
+        return mode;
     }
 
     private ToolManager.ToolMode convStringToToolMode(String item) {
@@ -406,6 +447,25 @@ public class PDFTron extends CordovaPlugin {
             }
             if (!success) {
                 callbackContext.error("setToolMode to " + toolMode + " failed.");
+            }
+        } else {
+            callbackContext.error("Viewer is not ready yet.");
+        }
+    }
+
+    private void setPagePresentationMode(String presentationMode, CallbackContext callbackContext) {
+        if (mDocumentView.mPdfViewCtrlTabHostFragment != null && mDocumentView.mPdfViewCtrlTabHostFragment.getCurrentPdfViewCtrlFragment() != null) {
+            boolean success = false;
+            PDFViewCtrl pdfViewCtrl = mDocumentView.mPdfViewCtrlTabHostFragment.getCurrentPdfViewCtrlFragment().getPDFViewCtrl();
+            if (pdfViewCtrl != null) {
+                PDFViewCtrl.PagePresentationMode mode = convStringToPagePresentationMode(presentationMode);
+                if (mode != null) {
+                    pdfViewCtrl.setPagePresentationMode(mode);
+                    success = true;
+                }
+            }
+            if (!success) {
+                callbackContext.error("setPagePresentationMode to " + presentationMode + " failed.");
             }
         } else {
             callbackContext.error("Viewer is not ready yet.");

@@ -1,10 +1,11 @@
 package com.pdftron.cordova;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class DocumentView extends com.pdftron.pdf.controls.DocumentView {
 
@@ -46,6 +47,10 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView {
         this.top = t;
         this.width = w;
         this.height = h;
+    }
+
+    public boolean isUseCustomRect() {
+        return useCustomRect;
     }
 
     @Override
