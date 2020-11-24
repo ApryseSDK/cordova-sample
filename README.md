@@ -1,4 +1,7 @@
 # PDFTron Cordova Sample
+
+## This project is no longer maintained. Please see: https://github.com/PDFTron/webviewer-cordova-sample
+
 Cordova sample project that integrates a document viewer using [PDFTron Cordova](https://github.com/PDFTron/pdftron-cordova).
 
 ## Install
